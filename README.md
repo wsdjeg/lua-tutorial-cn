@@ -39,6 +39,9 @@ Lua 中文交流 telegram 群： https://t.me/lua_cn
 - [Lua 函数](#lua-函数)
   - [多返回值](#多返回值)
   - [可变参数](#可变参数)
+- [Lua 运算符](#lua-运算符)
+  - [算术运算符](#算术运算符)
+  - [关系运算符](#关系运算符)
 
 <!-- vim-markdown-toc -->
 
@@ -866,9 +869,9 @@ else
 end
 ```
 
-在布尔表达式为 true 时会if中的代码块会被执行，在布尔表达式为 false 时，else 的代码块会被执行。
+在布尔表达式为 true 时会 if 中的代码块会被执行，在布尔表达式为 false 时，else 的代码块会被执行。
 
-Lua认为false和nil为假，true 和非nil为真。要注意的是Lua中 0 为 true。
+Lua 认为 false 和 nil 为假，true 和非 nil 为真。要注意的是 Lua 中 0 为 true。
 
 实例
 
@@ -891,8 +894,7 @@ print("a 的值为 :", a)
 
 以上代码执行结果如下：
 
-
-###  else if 语句
+### else if 语句
 
 Lua if 语句可以与 else if...else 语句搭配使用, 在 if 条件表达式为 false 时执行 else if...else 语句代码块，用于检测多个条件语句。
 
@@ -908,7 +910,7 @@ else if( 布尔表达式 2)
 
 else if( 布尔表达式 3)
    --[ 在布尔表达式 3 为 true 时执行该语句块 --]
-else 
+else
    --[ 如果以上布尔表达式都不为 true 则执行该语句块 --]
 end
 ```
@@ -925,7 +927,7 @@ then
    --[ 如果条件为 true 打印以下信息 --]
    print("a 的值为 10" )
 elseif( a == 20 )
-then   
+then
    --[ if else if 条件为 true 时打印以下信息 --]
    print("a 的值为 20" )
 elseif( a == 30 )
@@ -942,7 +944,6 @@ print("a 的真实值为: ", a )
 运行结果如下：
 
 ![elseif](https://user-images.githubusercontent.com/13142418/57591705-4d449e00-7565-11e9-97dd-a6c4c667597b.png)
-
 
 ### if else 嵌套
 
@@ -989,17 +990,16 @@ print("b 的值为 :", b );
 
 ![ififif](https://user-images.githubusercontent.com/13142418/57592594-1d4bc980-756a-11e9-894b-fe6137424a6d.png)
 
-
 ## Lua 函数
 
-在Lua中，函数是对语句和表达式进行抽象的主要方法。既可以用来处理一些特殊的工作，也可以用来计算一些值。
+在 Lua 中，函数是对语句和表达式进行抽象的主要方法。既可以用来处理一些特殊的工作，也可以用来计算一些值。
 
-Lua 提供了许多的内建函数，你可以很方便的在程序中调用它们，如print()函数可以将传入的参数打印在控制台上。
+Lua 提供了许多的内建函数，你可以很方便的在程序中调用它们，如 print()函数可以将传入的参数打印在控制台上。
 
 Lua 函数主要有两种用途：
 
 1. 完成指定的任务，这种情况下函数作为调用语句使用；
-2. 计算并返回值，这种情况下函数作为赋值语句的表达式使用。 
+2. 计算并返回值，这种情况下函数作为赋值语句的表达式使用。
 
 函数定义
 
@@ -1018,8 +1018,7 @@ end
 - `function_name`: 指定函数名称。
 - `argument1, argument2, argument3..., argumentn` : 函数参数，多个参数以逗号隔开，函数也可以不带参数。
 - `function_body`: 函数体，函数中需要执行的代码语句块。
-- `result_params_comma_separated`: 函数返回值，Lua语言函数可以返回多个值，每个值以逗号隔开。
-    
+- `result_params_comma_separated`: 函数返回值，Lua 语言函数可以返回多个值，每个值以逗号隔开。
 
 实例
 
@@ -1035,7 +1034,7 @@ function max(num1, num2)
       result = num2;
    end
 
-   return result; 
+   return result;
 end
 -- 调用函数
 print("两值比较最大值为 ",max(10,4))
@@ -1069,15 +1068,15 @@ add(2,5,myprint)
 
 ### 多返回值
 
-Lua函数可以返回多个结果值，比如string.find，其返回匹配串"开始和结束的下标"（如果不存在匹配串返回nil）。
+Lua 函数可以返回多个结果值，比如 string.find，其返回匹配串"开始和结束的下标"（如果不存在匹配串返回 nil）。
 
 ```
-> s, e = string.find("www.w3cschool.cn", "w3cschool") 
+> s, e = string.find("www.w3cschool.cn", "w3cschool")
 > print(s, e)
 5	13
 ```
 
-Lua函数中，在return后列出要返回的值得列表即可返回多值，如：
+Lua 函数中，在 return 后列出要返回的值得列表即可返回多值，如：
 
 ```lua
 function maximum (a)
@@ -1101,9 +1100,9 @@ print(maximum({8,10,23,12,5}))
 
 ### 可变参数
 
-Lua函数可以接受可变数目的参数，和C语言类似在函数参数列表中使用三点（...) 表示函数有可变的参数。
+Lua 函数可以接受可变数目的参数，和 C 语言类似在函数参数列表中使用三点（...) 表示函数有可变的参数。
 
-Lua将函数的参数放在一个叫arg的表中，#arg 表示传入参数的个数。
+Lua 将函数的参数放在一个叫 arg 的表中，#arg 表示传入参数的个数。
 
 例如，我们计算几个数的平均值：
 
@@ -1125,3 +1124,132 @@ print("平均值为",average(10,5,3,4,5,6))
 
 ![average](https://user-images.githubusercontent.com/13142418/57593230-1bcfd080-756d-11e9-98b1-e4f515980e6d.png)
 
+## Lua 运算符
+
+运算符是一个特殊的符号，用于告诉解释器执行特定的数学或逻辑运算。Lua 提供了以下几种运算符类型：
+
+- 算术运算符
+- 关系运算符
+- 逻辑运算符
+- 其他运算符
+
+### 算术运算符
+
+下表列出了 Lua 语言中的常用算术运算符，设定 A 的值为 10，B 的值为 20：
+
+| 操作符 | 描述 | 实例                 |
+| ------ | ---- | -------------------- |
+| `+`    | 加法 | `A + B` 输出结果 30  |
+| `-`    | 减法 | `A - B` 输出结果 -10 |
+| `*`    | 乘法 | `A * B` 输出结果 200 |
+| `/`    | 除法 | `B / A` 输出结果 2   |
+| `%`    | 取余 | `B % A` 输出结果 0   |
+| `^`    | 乘幂 | `A ^ 2` 输出结果 100 |
+| `-`    | 负号 | `-A` 输出结果 -10    |
+
+实例
+
+我们可以通过以下实例来更加透彻的理解算术运算符的应用：
+
+```lua
+a = 21
+b = 10
+c = a + b
+print("Line 1 - c 的值为 ", c )
+c = a - b
+print("Line 2 - c 的值为 ", c )
+c = a * b
+print("Line 3 - c 的值为 ", c )
+c = a / b
+print("Line 4 - c 的值为 ", c )
+c = a % b
+print("Line 5 - c 的值为 ", c )
+c = a^2
+print("Line 6 - c 的值为 ", c )
+c = -a
+print("Line 7 - c 的值为 ", c )
+```
+
+以上程序执行结果为：
+
+```
+Line 1 - c 的值为 31
+Line 2 - c 的值为 11
+Line 3 - c 的值为 210
+Line 4 - c 的值为 2.1
+Line 5 - c 的值为 1
+Line 6 - c 的值为 441
+Line 7 - c 的值为 -21
+```
+
+### 关系运算符
+
+下表列出了 Lua 语言中的常用关系运算符，设定 A 的值为 10，B 的值为 20：
+
+| 操作符 | 描述                                                               | 实例                  |
+| ------ | ------------------------------------------------------------------ | --------------------- |
+| ==     | 等于，检测两个值是否相等，相等返回 true，否则返回 false            | (A == B) 为 false。   |
+| ~=     | 不等于，检测两个值是否相等，相等返回 false，否则返回 true          | (A ~= B) 为 true。    |
+| >      | 大于，如果左边的值大于右边的值，返回 true，否则返回 false          | (A > B) 为 false。    |
+| <      | 小于，如果左边的值大于右边的值，返回 false，否则返回 true          | (A < B) 为 true。     |
+| >=     | 大于等于，如果左边的值大于等于右边的值，返回 true，否则返回 false  | (A >= B) is not true. |
+| <=     | 小于等于， 如果左边的值小于等于右边的值，返回 true，否则返回 false | (A <= B) is true.     |
+
+实例
+
+我们可以通过以下实例来更加透彻的理解关系运算符的应用：
+
+```lua
+a = 21
+b = 10
+
+if( a == b )
+then
+   print("Line 1 - a 等于 b" )
+else
+   print("Line 1 - a 不等于 b" )
+end
+
+if( a ~= b )
+then
+   print("Line 2 - a 不等于 b" )
+else
+   print("Line 2 - a 等于 b" )
+end
+
+if ( a < b )
+then
+   print("Line 3 - a 小于 b" )
+else
+   print("Line 3 - a 大于等于 b" )
+end
+
+if ( a > b ) 
+then
+   print("Line 4 - a 大于 b" )
+else
+   print("Line 5 - a 小于等于 b" )
+end
+
+-- 修改 a 和 b 的值
+a = 5
+b = 20
+if ( a <= b ) 
+then
+   print("Line 5 - a 小于等于  b" )
+end
+
+if ( b >= a ) 
+then
+   print("Line 6 - b 大于等于 a" )
+end
+```
+
+以上程序执行结果为：
+
+Line 1 - a 不等于 b
+Line 2 - a 不等于 b
+Line 3 - a 大于等于 b
+Line 4 - a 大于 b
+Line 5 - a 小于等于 b
+Line 6 - b 大于等于 a
