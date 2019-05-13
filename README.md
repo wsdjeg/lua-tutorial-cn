@@ -1247,9 +1247,11 @@ end
 
 以上程序执行结果为：
 
+```
 Line 1 - a 不等于 b
 Line 2 - a 不等于 b
 Line 3 - a 大于等于 b
 Line 4 - a 大于 b
 Line 5 - a 小于等于 b
 Line 6 - b 大于等于 a
+```
