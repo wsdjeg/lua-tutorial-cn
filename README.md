@@ -34,6 +34,7 @@ Lua 中文交流 telegram 群： https://t.me/lua_cn
 - [Lua 流程控制](#lua-流程控制)
   - [if 语句](#if-语句)
   - [if else 语句](#if-else-语句)
+  - [else if 语句](#else-if-语句)
 - [函数](#函数)
   - [可变参数](#可变参数)
 
@@ -887,6 +888,58 @@ print("a 的值为 :", a)
 ```
 
 以上代码执行结果如下：
+
+
+###  else if 语句
+
+Lua if 语句可以与 else if...else 语句搭配使用, 在 if 条件表达式为 false 时执行 else if...else 语句代码块，用于检测多个条件语句。
+
+Lua if...else if...else 语句语法格式如下：
+
+```
+if( 布尔表达式 1)
+then
+   --[ 在布尔表达式 1 为 true 时执行该语句块 --]
+
+else if( 布尔表达式 2)
+   --[ 在布尔表达式 2 为 true 时执行该语句块 --]
+
+else if( 布尔表达式 3)
+   --[ 在布尔表达式 3 为 true 时执行该语句块 --]
+else 
+   --[ 如果以上布尔表达式都不为 true 则执行该语句块 --]
+end
+```
+
+示例代码，以下示例代码对变量 a 值进行判断：
+
+```lua
+--[ 定义变量 --]
+a = 100
+
+--[ 检查布尔条件 --]
+if( a == 10 )
+then
+   --[ 如果条件为 true 打印以下信息 --]
+   print("a 的值为 10" )
+elseif( a == 20 )
+then   
+   --[ if else if 条件为 true 时打印以下信息 --]
+   print("a 的值为 20" )
+elseif( a == 30 )
+then
+   --[ if else if condition 条件为 true 时打印以下信息 --]
+   print("a 的值为 30" )
+else
+   --[ 以上条件语句没有一个为 true 时打印以下信息 --]
+   print("没有匹配 a 的值" )
+end
+print("a 的真实值为: ", a )
+```
+
+运行结果如下：
+
+![elseif](https://user-images.githubusercontent.com/13142418/57591705-4d449e00-7565-11e9-97dd-a6c4c667597b.png)
 
 ## 函数
 
