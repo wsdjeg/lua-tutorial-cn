@@ -59,6 +59,7 @@ Lua 中文交流 telegram 群： https://t.me/lua_cn
   - [`__index` 元方法](#__index-元方法)
   - [`__newindex` 元方法](#__newindex-元方法)
   - [`__tostring` 元方法](#__tostring-元方法)
+- [Lua 协同程序(coroutine)](#lua-协同程序coroutine)
 
 <!-- vim-markdown-toc -->
 
@@ -1324,7 +1325,6 @@ print("字符串 3 是", string3)
 | \ddd         | 1 到 3 位八进制数所代表的任意字符    | 三位八进制           |
 | \xhh         | 1 到 2 位十六进制所代表的任意字符    | 二位十六进制         |
 
-
 ### 字符串操作
 
 Lua 提供了很多的方法来支持字符串的操作：
@@ -1349,7 +1349,6 @@ lua
 字符串查找与反转
 
 以下实例演示了如何对字符串进行查找与反转操作：
-
 
 ```lua
 string = "Lua Tutorial"
@@ -1425,7 +1424,6 @@ print(string.char(97))
 a
 ```
 
-
 其他常用函数
 
 以下实例演示了其他字符串操作，如计算字符串长度，字符串连接，字符串复制等：
@@ -1463,7 +1461,7 @@ Lua 数组的索引键值可以使用整数表示，数组的大小不是固定�
 
 ### 一维数组
 
-一维数组是最简单的数组，其逻辑结构是线性表。一维数组可以用for循环出数组中的元素，如下实例：
+一维数组是最简单的数组，其逻辑结构是线性表。一维数组可以用 for 循环出数组中的元素，如下实例：
 
 ```lua
 array = {"Lua", "Tutorial"}
@@ -1481,7 +1479,7 @@ Lua
 Tutorial
 ```
 
-正如你所看到的，我们可以使用整数索引来访问数组元素，如果知道的索引没有值则返回nil。
+正如你所看到的，我们可以使用整数索引来访问数组元素，如果知道的索引没有值则返回 nil。
 
 在 Lua 索引值是以 1 为起始，但你也可以指定 0 开始。
 
@@ -1588,7 +1586,7 @@ end
 
 迭代器（iterator）是一种对象，它能够用来遍历标准模板库容器中的部分或全部元素，每个迭代器对象代表容器中的确定的地址
 
-在Lua中迭代器是一种支持指针类型的结构，它可以遍历集合的每一个元素。
+在 Lua 中迭代器是一种支持指针类型的结构，它可以遍历集合的每一个元素。
 
 ### 泛型 for 迭代器
 
@@ -1602,14 +1600,14 @@ for k, v in pairs(t) do
 end
 ```
 
-上面代码中，k, v为变量列表；pairs(t)为表达式列表。
+上面代码中，k, v 为变量列表；pairs(t)为表达式列表。
 
 查看以下实例:
 
 ```lua
 array = {"Lua", "Tutorial"}
 
-for key,value in ipairs(array) 
+for key,value in ipairs(array)
 do
    print(key, value)
 end
@@ -1624,15 +1622,15 @@ end
 
 以上实例中我们使用了 Lua 默认提供的迭代函数 ipairs。
 
-下面我们看看范性for的执行过程：
+下面我们看看范性 for 的执行过程：
 
-- 首先，初始化，计算in后面表达式的值，表达式应该返回范性for需要的三个值：迭代函数、状态常量、控制变量；与多值赋值一样，如果表达式返回的结果个数不足三个会自动用nil补足，多出部分会被忽略。
-- 第二，将状态常量和控制变量作为参数调用迭代函数（注意：对于for结构来说，状态常量没有用处，仅仅在初始化时获取他的值并传递给迭代函数）。
+- 首先，初始化，计算 in 后面表达式的值，表达式应该返回范性 for 需要的三个值：迭代函数、状态常量、控制变量；与多值赋值一样，如果表达式返回的结果个数不足三个会自动用 nil 补足，多出部分会被忽略。
+- 第二，将状态常量和控制变量作为参数调用迭代函数（注意：对于 for 结构来说，状态常量没有用处，仅仅在初始化时获取他的值并传递给迭代函数）。
 - 第三，将迭代函数返回的值赋给变量列表。
-- 第四，如果返回的第一个值为nil循环结束，否则执行循环体。
+- 第四，如果返回的第一个值为 nil 循环结束，否则执行循环体。
 - 第五，回到第二步再次调用迭代函数
 
-在Lua中我们常常使用函数来描述迭代器，每次调用该函数就返回集合的下一个元素。Lua 的迭代器包含以下两种类型：
+在 Lua 中我们常常使用函数来描述迭代器，每次调用该函数就返回集合的下一个元素。Lua 的迭代器包含以下两种类型：
 
 - 无状态的迭代器
 - 多状态的迭代器
@@ -1643,7 +1641,7 @@ end
 
 每一次迭代，迭代函数都是用两个变量（状态常量和控制变量）的值作为参数被调用，一个无状态的迭代器只利用这两个值可以获取下一个元素。
 
-这种无状态迭代器的典型的简单的例子是ipairs，他遍历数组的每一个元素。
+这种无状态迭代器的典型的简单的例子是 ipairs，他遍历数组的每一个元素。
 
 以下实例我们使用了一个简单的函数来实现迭代器，实现 数字 n 的平方：
 
@@ -1670,7 +1668,7 @@ end
 3	9
 ```
 
-迭代的状态包括被遍历的表（循环过程中不会改变的状态常量）和当前的索引下标（控制变量），ipairs和迭代函数都很简单，我们在Lua中可以这样实现：
+迭代的状态包括被遍历的表（循环过程中不会改变的状态常量）和当前的索引下标（控制变量），ipairs 和迭代函数都很简单，我们在 Lua 中可以这样实现：
 
 ```lua
 function iter (a, i)
@@ -1680,16 +1678,16 @@ function iter (a, i)
        return i, v
     end
 end
- 
+
 function ipairs (a)
     return iter, a, 0
 end
 ```
 
-当Lua调用ipairs(a)开始循环时，他获取三个值：迭代函数iter、状态常量a、控制变量初始值0；然后Lua调用iter(a,0)返回1,a[1]（除非a[1]=nil）；第二次迭代调用iter(a,1)返回2,a[2]……直到第一个nil元素。
+当 Lua 调用 ipairs(a)开始循环时，他获取三个值：迭代函数 iter、状态常量 a、控制变量初始值 0；然后 Lua 调用 iter(a,0)返回 1,a[1]（除非 a[1]=nil）；第二次迭代调用 iter(a,1)返回 2,a[2]……直到第一个 nil 元素。
 多状态的迭代器
 
-很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到table内，将table作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在table内，所以迭代函数通常不需要第二个参数。
+很多情况下，迭代器需要保存多个状态信息而不是简单的状态常量和控制变量，最简单的方法是使用闭包，还有一种方法就是将所有的状态信息封装到 table 内，将 table 作为迭代器的状态常量，因为这种情况下可以将所有的信息存放在 table 内，所以迭代函数通常不需要第二个参数。
 
 以下实例我们创建了自己的迭代器：
 
@@ -1733,11 +1731,11 @@ Lua table 使用关联型数组，你可以用任意类型的值来作数组的�
 
 Lua table 是不固定大小的，你可以根据自己需要进行扩容。
 
-Lua也是通过table来解决模块（module）、包（package）和对象（Object）的。 例如string.format表示使用"format"来索引table string。
+Lua 也是通过 table 来解决模块（module）、包（package）和对象（Object）的。 例如 string.format 表示使用"format"来索引 table string。
 
 ### table(表)的构造
 
-构造器是创建和初始化表的表达式。表是Lua特有的功能强大的东西。最简单的构造函数是{}，用来创建一个空表。可以直接初始化数组:
+构造器是创建和初始化表的表达式。表是 Lua 特有的功能强大的东西。最简单的构造函数是{}，用来创建一个空表。可以直接初始化数组:
 
 ```lua
 -- 初始化表
@@ -1751,7 +1749,7 @@ mytable = nil
 -- lua 垃圾回收会释放内存
 ```
 
-当我们为 table a 并设置元素，然后将 a 赋值给 b，则 a 与 b 都指向同一个内存。如果 a 设置为 nil ，则 b 同样能访问 table 的元素。如果没有指定的变量指向a，Lua的垃圾回收机制会清理相对应的内存。
+当我们为 table a 并设置元素，然后将 a 赋值给 b，则 a 与 b 都指向同一个内存。如果 a 设置为 nil ，则 b 同样能访问 table 的元素。如果没有指定的变量指向 a，Lua 的垃圾回收机制会清理相对应的内存。
 
 以下实例演示了以上的描述情况：
 
@@ -1802,14 +1800,13 @@ mytable 是 	nil
 
 ### Table 操作
 
-
 以下列出了 Table 操作常用的方法：
 
-1. `table.concat (table [, step [, start [, end]]])`: concat是concatenate(连锁, 连接)的缩写. table.concat()函数列出参数中指定table的数组部分从start位置到end位置的所有元素, 元素间以指定的分隔符(sep)隔开。
-2. `table.insert (table, [pos,] value)`: 在table的数组部分指定位置(pos)插入值为value的一个元素. pos参数可选, 默认为数组部分末尾.
-3. `table.maxn (table)`: 指定table中所有正数key值中最大的key值. 如果不存在key值为正数的元素, 则返回0。(Lua5.2之后该方法已经不存在了,本文使用了自定义函数实现)
-4. `table.remove (table [, pos])`: 返回table数组部分位于pos位置的元素. 其后的元素会被前移. pos参数可选, 默认为table长度, 即从最后一个元素删起。
-5. `table.sort (table [, comp])`: 对给定的table进行升序排序。
+1. `table.concat (table [, step [, start [, end]]])`: concat 是 concatenate(连锁, 连接)的缩写. table.concat()函数列出参数中指定 table 的数组部分从 start 位置到 end 位置的所有元素, 元素间以指定的分隔符(sep)隔开。
+2. `table.insert (table, [pos,] value)`: 在 table 的数组部分指定位置(pos)插入值为 value 的一个元素. pos 参数可选, 默认为数组部分末尾.
+3. `table.maxn (table)`: 指定 table 中所有正数 key 值中最大的 key 值. 如果不存在 key 值为正数的元素, 则返回 0。(Lua5.2 之后该方法已经不存在了,本文使用了自定义函数实现)
+4. `table.remove (table [, pos])`: 返回 table 数组部分位于 pos 位置的元素. 其后的元素会被前移. pos 参数可选, 默认为 table 长度, 即从最后一个元素删起。
+5. `table.sort (table [, comp])`: 对给定的 table 进行升序排序。
 
 接下来我们来看下这几个方法的实例。
 
@@ -1937,23 +1934,23 @@ Lua 的模块是由变量、函数等已知元素组成的 table，因此创建�
 -- 文件名为 module.lua
 -- 定义一个名为 module 的模块
 module = {}
- 
+
 -- 定义一个常量
 module.constant = "这是一个常量"
- 
+
 -- 定义一个函数
 function module.func1()
     io.write("这是一个公有函数！\n")
 end
- 
+
 local function func2()
     print("这是一个私有函数！")
 end
- 
+
 function module.func3()
     func2()
 end
- 
+
 return module
 ```
 
@@ -1962,7 +1959,7 @@ return module
 上面的 func2 声明为程序块的局部变量，即表示一个私有函数，因此是不能从外部访问模块里的这个私有函数，必须通过模块里的公有函数来调用.
 require 函数
 
-Lua提供了一个名为require的函数用来加载模块。要加载一个模块，只需要简单地调用就可以了。例如：
+Lua 提供了一个名为 require 的函数用来加载模块。要加载一个模块，只需要简单地调用就可以了。例如：
 
 ```lua
 require("<模块名>")
@@ -1980,9 +1977,9 @@ require "<模块名>"
 -- test_module.php 文件
 -- module 模块为上文提到到 module.lua
 require("module")
- 
+
 print(module.constant)
- 
+
 module.func3()
 ```
 
@@ -2000,9 +1997,9 @@ module.func3()
 -- module 模块为上文提到到 module.lua
 -- 别名变量 m
 local m = require("module")
- 
+
 print(m.constant)
- 
+
 m.func3()
 ```
 
@@ -2058,20 +2055,20 @@ source ~/.profile
 搜索的策略跟上面的一样，只不过现在换成搜索的是 so 或 dll 类型的文件。如果找得到，那么 require 就会通过 package.loadlib 来加载它。
 C 包
 
-Lua和C是很容易结合的，使用C为Lua写包。
+Lua 和 C 是很容易结合的，使用 C 为 Lua 写包。
 
-与Lua中写包不同，C包在使用以前必须首先加载并连接，在大多数系统中最容易的实现方式是通过动态连接库机制。
+与 Lua 中写包不同，C 包在使用以前必须首先加载并连接，在大多数系统中最容易的实现方式是通过动态连接库机制。
 
-Lua在一个叫loadlib的函数内提供了所有的动态连接的功能。这个函数有两个参数:库的绝对路径和初始化函数。所以典型的调用的例子如下:
+Lua 在一个叫 loadlib 的函数内提供了所有的动态连接的功能。这个函数有两个参数:库的绝对路径和初始化函数。所以典型的调用的例子如下:
 
 ```
 local path = "/usr/local/lua/lib/libluasocket.so"
 local f = loadlib(path, "luaopen_socket")
 ```
 
-loadlib函数加载指定的库并且连接到Lua，然而它并不打开库（也就是说没有调用初始化函数），反之他返回初始化函数作为Lua的一个函数，这样我们就可以直接在Lua中调用他。
+loadlib 函数加载指定的库并且连接到 Lua，然而它并不打开库（也就是说没有调用初始化函数），反之他返回初始化函数作为 Lua 的一个函数，这样我们就可以直接在 Lua 中调用他。
 
-如果加载动态库或者查找初始化函数时出错，loadlib将返回nil和错误信息。我们可以修改前面一段代码，使其检测错误然后调用初始化函数：
+如果加载动态库或者查找初始化函数时出错，loadlib 将返回 nil 和错误信息。我们可以修改前面一段代码，使其检测错误然后调用初始化函数：
 
 ```lua
 local path = "/usr/local/lua/lib/libluasocket.so"
@@ -2080,31 +2077,31 @@ local f = assert(loadlib(path, "luaopen_socket"))
 f()  -- 真正打开库
 ```
 
-一般情况下我们期望二进制的发布库包含一个与前面代码段相似的stub文件，安装二进制库的时候可以随便放在某个目录，只需要修改stub文件对应二进制库的实际路径即可。
+一般情况下我们期望二进制的发布库包含一个与前面代码段相似的 stub 文件，安装二进制库的时候可以随便放在某个目录，只需要修改 stub 文件对应二进制库的实际路径即可。
 
-将stub文件所在的目录加入到LUA_PATH，这样设定后就可以使用require函数加载C库了。 
+将 stub 文件所在的目录加入到 LUA_PATH，这样设定后就可以使用 require 函数加载 C 库了。
 
 ## Lua 元表(Metatable)
 
-在 Lua table 中我们可以访问对应的key来得到value值，但是却无法对两个 table 进行操作。
+在 Lua table 中我们可以访问对应的 key 来得到 value 值，但是却无法对两个 table 进行操作。
 
-因此 Lua 提供了元表(Metatable)，允许我们改变table的行为，每个行为关联了对应的元方法。
+因此 Lua 提供了元表(Metatable)，允许我们改变 table 的行为，每个行为关联了对应的元方法。
 
-例如，使用元表我们可以定义Lua如何计算两个table的相加操作a+b。
+例如，使用元表我们可以定义 Lua 如何计算两个 table 的相加操作 a+b。
 
-当Lua试图对两个表进行相加时，先检查两者之一是否有元表，之后检查是否有一个叫`__add`的字段，若找到，则调用对应的值。`__add` 等即时字段，其对应的值（往往是一个函数或是table）就是"元方法"。
+当 Lua 试图对两个表进行相加时，先检查两者之一是否有元表，之后检查是否有一个叫`__add`的字段，若找到，则调用对应的值。`__add` 等即时字段，其对应的值（往往是一个函数或是 table）就是"元方法"。
 
 有两个很重要的函数来处理元表：
 
-- setmetatable(table,metatable): 对指定table设置元表(metatable)，如果元表(metatable)中存在`__metatable`键值，setmetatable会失败 。
+- setmetatable(table,metatable): 对指定 table 设置元表(metatable)，如果元表(metatable)中存在`__metatable`键值，setmetatable 会失败 。
 - getmetatable(table): 返回对象的元表(metatable)。
 
 以下实例演示了如何对指定的表设置元表：
 
 ```lua
-mytable = {}                          -- 普通表 
+mytable = {}                          -- 普通表
 mymetatable = {}                      -- 元表
-setmetatable(mytable,mymetatable)     -- 把 mymetatable 设为 mytable 的元表 
+setmetatable(mytable,mymetatable)     -- 把 mymetatable 设为 mytable 的元表
 ```
 
 以上代码也可以直接写成一行：
@@ -2122,22 +2119,22 @@ getmetatable(mytable)                 -- 这回返回mymetatable
 ### `__index` 元方法
 
 这是 metatable 最常用的键。
-当你通过键来访问 table 的时候，如果这个键没有值，那么Lua就会寻找该table的metatable（假定有metatable）中的`__index` 键。如果`__index`包含一个表格，Lua会在表格中查找相应的键。
+当你通过键来访问 table 的时候，如果这个键没有值，那么 Lua 就会寻找该 table 的 metatable（假定有 metatable）中的`__index` 键。如果`__index`包含一个表格，Lua 会在表格中查找相应的键。
 
 我们可以在使用 lua 命令进入交互模式查看：
 
 ```
 $ lua
 Lua 5.3.0  Copyright (C) 1994-2015 Lua.org, PUC-Rio
-> other = { foo = 3 } 
-> t = setmetatable({}, { __index = other }) 
+> other = { foo = 3 }
+> t = setmetatable({}, { __index = other })
 > t.foo
 3
 > t.bar
 nil
 ```
 
-如果`__index`包含一个函数的话，Lua就会调用那个函数，table和键会作为参数传递给函数。
+如果`__index`包含一个函数的话，Lua 就会调用那个函数，table 和键会作为参数传递给函数。
 
 `__index` 元方法查看表中元素是否存在，如果不存在，返回结果为 nil；如果存在则由 `__index` 返回结果。
 
@@ -2161,18 +2158,17 @@ print(mytable.key1,mytable.key2)
 value1	metatablevalue
 ```
 
-
 实例解析：
 
 - mytable 表赋值为 {key1 = "value1"}。
 
 - mytable 设置了元表，元方法为 `__index`。
 
-- 在mytable表中查找 key1，如果找到，返回该元素，找不到则继续。
+- 在 mytable 表中查找 key1，如果找到，返回该元素，找不到则继续。
 
-- 在mytable表中查找 key2，如果找到，返回该元素，找不到则继续。
+- 在 mytable 表中查找 key2，如果找到，返回该元素，找不到则继续。
 
-- 判断元表有没有`__index`方法，如果`__index`方法是一个函数，则调用该函数。元方法中查看是否传入 "key2" 键的参数（mytable.key2已设置），如果传入 "key2" 参数返回 "metatablevalue"，否则返回 mytable 对应的键值。
+- 判断元表有没有`__index`方法，如果`__index`方法是一个函数，则调用该函数。元方法中查看是否传入 "key2" 键的参数（mytable.key2 已设置），如果传入 "key2" 参数返回 "metatablevalue"，否则返回 mytable 对应的键值。
 
 我们可以将以上代码简单写成：
 
@@ -2210,10 +2206,9 @@ nil    新值2
 新值1    nil
 ```
 
-以上实例中表设置了元方法 `__newindex`，在对新索引键（newkey）赋值时（mytable.newkey = "新值2"），会调用元方法，而不进行赋值。而如果对已存在的索引键（key1），则会进行赋值，而不调用元方法 `__newindex`。
+以上实例中表设置了元方法 `__newindex`，在对新索引键（newkey）赋值时（mytable.newkey = "新值 2"），会调用元方法，而不进行赋值。而如果对已存在的索引键（key1），则会进行赋值，而不调用元方法 `__newindex`。
 
 以下实例使用了 rawset 函数来更新表：
-
 
 ```lua
 mytable = setmetatable({key1 = "value1"}, {
@@ -2283,19 +2278,19 @@ end
 
 `__add` 键包含在元表中，并进行相加操作。 表中对应的操作列表如下：
 
-模式	| 描述
---- | ---
-`__add` |	对应的运算符 `+`.
-`__sub` |	对应的运算符 `-`.
-`__mul` |	对应的运算符 `*`.
-`__div` |	对应的运算符 `/`.
-`__mod` |	对应的运算符 `%`.
-`__unm` |	对应的运算符 `-`.
-`__concat` |	对应的运算符 `..`.
-`__eq` |	对应的运算符 `==`.
-`__lt` |	对应的运算符 `<`.
-`__le` |	对应的运算符 `<=`.
-`__call` | 元方法
+| 模式       | 描述               |
+| ---------- | ------------------ |
+| `__add`    | 对应的运算符 `+`.  |
+| `__sub`    | 对应的运算符 `-`.  |
+| `__mul`    | 对应的运算符 `*`.  |
+| `__div`    | 对应的运算符 `/`.  |
+| `__mod`    | 对应的运算符 `%`.  |
+| `__unm`    | 对应的运算符 `-`.  |
+| `__concat` | 对应的运算符 `..`. |
+| `__eq`     | 对应的运算符 `==`. |
+| `__lt`     | 对应的运算符 `<`.  |
+| `__le`     | 对应的运算符 `<=`. |
+| `__call`   | 元方法             |
 
 `__call` 元方法在 Lua 调用一个值时调用。以下实例演示了计算表中元素的和：
 
@@ -2339,7 +2334,6 @@ print(mytable(newtable))
 
 `__tostring` 元方法用于修改表的输出行为。以下实例我们自定义了表的输出内容：
 
-
 ```lua
 mytable = setmetatable({ 10, 20, 30 }, {
   __tostring = function(mytable)
@@ -2360,3 +2354,245 @@ print(mytable)
 ```
 
 从本文中我们可以知道元表可以很好的简化我们的代码功能，所以了解 Lua 的元表，可以让我们写出更加简单优秀的 Lua 代码。
+
+## Lua 协同程序(coroutine)
+
+什么是协同(coroutine)？
+
+Lua 协同程序(coroutine)与线程比较类似：拥有独立的堆栈，独立的局部变量，独立的指令指针，同时又与其它协同程序共享全局变量和其它大部分东西。
+
+协同是非常强大的功能，但是用起来也很复杂。
+
+线程和协同程序区别
+
+线程与协同程序的主要区别在于，一个具有多个线程的程序可以同时运行几个线程，而协同程序却需要彼此协作的运行。
+
+在任一指定时刻只有一个协同程序在运行，并且这个正在运行的协同程序只有在明确的被要求挂起的时候才会被挂起。
+
+协同程序有点类似同步的多线程，在等待同一个线程锁的几个线程有点类似协同。
+
+基本语法
+
+| 方法                | 描述                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| coroutine.create()  | 创建 coroutine，返回 coroutine， 参数是一个函数，当和 resume 配合使用的时候就唤醒函数调用                          |
+| coroutine.resume()  | 重启 coroutine，和 create 配合使用                                                                                 |
+| coroutine.yield()   | 挂起 coroutine，将 coroutine 设置为挂起状态，这个和 resume 配合使用能有很多有用的效果                              |
+| coroutine.status()  | 查看 coroutine 的状态 注：coroutine 的状态有三种：dead，suspend，running，具体什么时候有这样的状态请参考下面的程序 |
+| coroutine.wrap（）  | 创建 coroutine，返回一个函数，一旦你调用这个函数，就进入 coroutine，和 create 功能重复                             |
+| coroutine.running() | 返回正在跑的 coroutine，一个 coroutine 就是一个线程，当使用 running 的时候，就是返回一个 corouting 的线程号        |
+
+以下实例演示了以上各个方法的用法：
+
+```lua
+-- coroutine_test.lua 文件
+co = coroutine.create(
+    function(i)
+        print(i);
+    end
+)
+
+coroutine.resume(co, 1)   -- 1
+print(coroutine.status(co))  -- dead
+
+print("----------")
+
+co = coroutine.wrap(
+    function(i)
+        print(i);
+    end
+)
+
+co(1)
+
+print("----------")
+
+co2 = coroutine.create(
+    function()
+        for i=1,10 do
+            print(i)
+            if i == 3 then
+                print(coroutine.status(co2))  --running
+                print(coroutine.running()) --thread:XXXXXX
+            end
+            coroutine.yield()
+        end
+    end
+)
+
+coroutine.resume(co2) --1
+coroutine.resume(co2) --2
+coroutine.resume(co2) --3
+
+print(coroutine.status(co2))   -- suspended
+print(coroutine.running())   --nil
+
+print("----------")
+```
+
+以上实例执行输出结果为：
+
+```
+1
+dead
+----------
+1
+----------
+1
+2
+3
+running
+thread: 0x7fb801c05868    false
+suspended
+thread: 0x7fb801c04c88    true
+----------
+```
+
+coroutine.running 就可以看出来,coroutine 在底层实现就是一个线程。
+
+当 create 一个 coroutine 的时候就是在新线程中注册了一个事件。
+
+当使用 resume 触发事件的时候，create 的 coroutine 函数就被执行了，当遇到 yield 的时候就代表挂起当前线程，等候再次 resume 触发事件。
+
+接下来我们分析一个更详细的实例：
+
+```lua
+function foo (a)
+    print("foo 函数输出", a)
+    return coroutine.yield(2 * a) -- 返回  2*a 的值
+end
+
+co = coroutine.create(function (a , b)
+    print("第一次协同程序执行输出", a, b) -- co-body 1 10
+    local r = foo(a + 1)
+
+    print("第二次协同程序执行输出", r)
+    local r, s = coroutine.yield(a + b, a - b)  -- a，b的值为第一次调用协同程序时传入
+
+    print("第三次协同程序执行输出", r, s)
+    return b, "结束协同程序"                   -- b的值为第二次调用协同程序时传入
+end)
+
+print("main", coroutine.resume(co, 1, 10)) -- true, 4
+print("--分割线----")
+print("main", coroutine.resume(co, "r")) -- true 11 -9
+print("---分割线---")
+print("main", coroutine.resume(co, "x", "y")) -- true 10 end
+print("---分割线---")
+print("main", coroutine.resume(co, "x", "y")) -- cannot resume dead coroutine
+print("---分割线---")
+```
+
+以上实例执行输出结果为：
+
+```
+第一次协同程序执行输出 1   10
+foo 函数输出    2
+main true    4
+--分割线----
+第二次协同程序执行输出   r
+main true    11  -9
+---分割线---
+第三次协同程序执行输出  x   y
+main true    10  结束协同程序
+---分割线---
+main false   cannot resume dead coroutine
+---分割线---
+```
+
+以上实例接下如下：
+
+    调用resume，将协同程序唤醒,resume操作成功返回true，否则返回false；
+    协同程序运行；
+    运行到yield语句；
+    yield挂起协同程序，第一次resume返回；（注意：此处yield返回，参数是resume的参数）
+    第二次resume，再次唤醒协同程序；（注意：此处resume的参数中，除了第一个参数，剩下的参数将作为yield的参数）
+    yield返回；
+    协同程序继续运行；
+    如果使用的协同程序继续运行完成后继续调用 resumev方法则输出：cannot resume dead coroutine
+
+resume 和 yield 的配合强大之处在于，resume 处于主程中，它将外部状态（数据）传入到协同程序内部；而 yield 则将内部的状态（数据）返回到主程中。
+生产者-消费者问题
+
+现在我就使用 Lua 的协同程序来完成生产者-消费者这一经典问题。
+
+```lua
+local newProductor
+
+function productor()
+     local i = 0
+     while true do
+          i = i + 1
+          send(i)     -- 将生产的物品发送给消费者
+     end
+end
+
+function consumer()
+     while true do
+          local i = receive()     -- 从生产者那里得到物品
+          print(i)
+     end
+end
+
+function receive()
+     local status, value = coroutine.resume(newProductor)
+     return value
+end
+
+function send(x)
+     coroutine.yield(x)     -- x表示需要发送的值，值返回以后，就挂起该协同程序
+end
+
+-- 启动程序
+newProductor = coroutine.create(productor)
+consumer()
+
+local newProductor
+
+function productor()
+     local i = 0
+     while true do
+          i = i + 1
+          send(i)     -- 将生产的物品发送给消费者
+     end
+end
+
+function consumer()
+     while true do
+          local i = receive()     -- 从生产者那里得到物品
+          print(i)
+     end
+end
+
+function receive()
+     local status, value = coroutine.resume(newProductor)
+     return value
+end
+
+function send(x)
+     coroutine.yield(x)     -- x表示需要发送的值，值返回以后，就挂起该协同程序
+end
+
+-- 启动程序
+newProductor = coroutine.create(productor)
+consumer()
+```
+
+以上实例执行输出结果为：
+
+```
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+……
+```
